@@ -1,9 +1,6 @@
 package com.app.helpdesk.domain;
 
-import com.app.helpdesk.domain.ticketsEnums.Channel;
-import com.app.helpdesk.domain.ticketsEnums.Priority;
-import com.app.helpdesk.domain.ticketsEnums.Status;
-import com.app.helpdesk.domain.ticketsEnums.Type;
+import com.app.helpdesk.domain.ticketsEnums.*;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -11,13 +8,15 @@ import java.time.LocalDateTime;
 
 @Data
 @Entity
-@NoArgsConstructor @AllArgsConstructor @Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 
 @Table(name = "tickets")
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column (name = "id", nullable = false)
+    @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(name = "public_number", nullable = false, unique = true)
@@ -44,17 +43,17 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     @Column(name = "channel", nullable = false)
     private Channel channel;
-//
-//    @ManyToOne
-//    @Column(name = "requester_ID")
-//    private Requester requesterID;
-//
-//    @ManyToOne
-//    @Column(name = "agent_ID")
-//    private Agent agentID;
-//
-//    @ManyToOne
-//    @Column(name = "organization_ID")
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "requester_ID")
+    private Requester requesterID;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "agent_ID")
+    private Agent agentID;
+
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "organization_ID")
 //    private Organization organizationID;
 
     @Column(name = "created_at", nullable = false)
@@ -70,16 +69,16 @@ public class Ticket {
     private LocalDateTime solvedAt;
 
     @PrePersist
-    public void defaultData(){
+    public void defaultData() {
         this.createdAt = LocalDateTime.now();
         this.updateAt = LocalDateTime.now();
-        if(this.status == null){
+        if (this.status == null) {
             this.status = Status.NEW;
         }
     }
 
     @PreUpdate
-    public void setUpdate(){
+    public void setUpdate() {
         this.updateAt = LocalDateTime.now();
     }
 }

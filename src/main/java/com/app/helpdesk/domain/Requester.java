@@ -1,7 +1,7 @@
 package com.app.helpdesk.domain;
 
 
-import com.app.helpdesk.domain.agentsEnums.Availability;
+import com.app.helpdesk.domain.agentsEnums.Lang;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -16,32 +16,32 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 
-@Table(name = "agents")
-public class Agent {
+@Table(name = "requesters")
+public class Requester {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "agent_ID")
-    private int agentID;
+    @Column(name = "requester_ID")
+    private int requesterID;
 
-    @Column(name = "email", nullable = false, unique = true)
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
+    @Column(name = "phone", nullable = false)
+    private String phone;
 
-    @Column(name = "nickname", nullable = false, unique = true)
-    private String nickname;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "organization_id", nullable = false)
+//    private int organizationID;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "availability", nullable = false)
-    private Availability availability;
+    @Column(name = "language", nullable = false)
+    private Lang language;
 
-    @Column(name = "active", nullable = false)
-    private boolean active;
+
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
