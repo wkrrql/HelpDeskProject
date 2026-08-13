@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 @Data
 @Entity
 @NoArgsConstructor
@@ -35,4 +37,21 @@ public class Message {
 
     @Column(name = "author_type", nullable = false)
     private String authorType;  //requester, agent, system
+
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
+
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
+
+    @PrePersist
+    public void defaultDate() {
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    @PreUpdate
+    public void setUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }

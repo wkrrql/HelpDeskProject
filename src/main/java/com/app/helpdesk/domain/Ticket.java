@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ticket_id", nullable = false)
+    @Column(name = "ticket_id")
     private Long id;
 
     @Column(name = "public_number", nullable = false, unique = true)
