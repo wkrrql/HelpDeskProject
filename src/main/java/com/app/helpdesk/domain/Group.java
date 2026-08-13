@@ -1,7 +1,5 @@
 package com.app.helpdesk.domain;
 
-
-import com.app.helpdesk.domain.agentsEnums.Lang;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,41 +7,34 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "groups")
+public class Group {
 
-@Table(name = "requesters")
-public class Requester {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "requester_id")
     private Long id;
 
-    @Column(name = "email", nullable = false)
-    private String email;
-
-    @Column(name = "name", nullable = false)
+    @Column(name = "name", nullable = false, unique = true)
     private String name;
 
-    @Column(name = "phone", nullable = false)
-    private String phone;
+    @Column(name = "description")
+    private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "organization_id", nullable = false)
-    private Organization organization;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "language", nullable = false)
-    private Lang language;
+    @ManyToMany(mappedBy = "groups")
+    private List<Agent> agents = new ArrayList<>();
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "update_at", nullable = false)
+    @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
 
     @PrePersist

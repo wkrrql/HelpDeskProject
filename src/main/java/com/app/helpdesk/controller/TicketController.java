@@ -12,6 +12,4 @@ public class TicketController {
     private static final Logger log = getLogger(TicketController.class);
 
 
-
-
 }

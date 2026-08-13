@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
 public class Ticket {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false)
+    @Column(name = "ticket_id", nullable = false)
     private Long id;
 
     @Column(name = "public_number", nullable = false, unique = true)
@@ -45,22 +45,22 @@ public class Ticket {
     private Channel channel;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "requester_ID")
-    private Requester requesterID;
+    @JoinColumn(name = "requester_id")
+    private Requester requester;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "agent_ID")
-    private Agent agentID;
+    @JoinColumn(name = "agent_id")
+    private Agent agent;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "organization_ID")
-//    private Organization organizationID;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "organization_id")
+    private Organization organization;
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "update_at", nullable = false)
-    private LocalDateTime updateAt;
+    @Column(name = "updated_at", nullable = false)
+    private LocalDateTime updatedAt;
 
     @Column(name = "first_response_at")
     private LocalDateTime firstResponseAt;
@@ -69,9 +69,9 @@ public class Ticket {
     private LocalDateTime solvedAt;
 
     @PrePersist
-    public void defaultData() {
+    public void defaultDate() {
         this.createdAt = LocalDateTime.now();
-        this.updateAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
         if (this.status == null) {
             this.status = Status.NEW;
         }
@@ -79,6 +79,6 @@ public class Ticket {
 
     @PreUpdate
     public void setUpdate() {
-        this.updateAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 }

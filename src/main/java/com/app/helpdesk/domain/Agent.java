@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Entity
@@ -18,11 +19,9 @@ import java.time.LocalDateTime;
 
 @Table(name = "agents")
 public class Agent {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "agent_ID")
-    private int agentID;
+    private Long id;
 
     @Column(name = "email", nullable = false, unique = true)
     private String email;
@@ -30,11 +29,17 @@ public class Agent {
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
-
     @Column(name = "nickname", nullable = false, unique = true)
     private String nickname;
+
+    @ManyToMany
+    @JoinTable(
+            name = "agent_groups",
+            joinColumns = @JoinColumn(name = "agent_id"),
+            inverseJoinColumns = @JoinColumn(name = "group_id")
+    )
+    private List<Group> groups;
+
 
     @Enumerated(EnumType.STRING)
     @Column(name = "availability", nullable = false)
@@ -47,16 +52,16 @@ public class Agent {
     private LocalDateTime createdAt;
 
     @Column(name = "update_at", nullable = false)
-    private LocalDateTime updateAt;
+    private LocalDateTime updatedAt;
 
     @PrePersist
-    public void defaultData(){
+    public void defaultDate() {
         this.createdAt = LocalDateTime.now();
-        this.updateAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
     }
 
     @PreUpdate
-    public void setUpdate(){
-        this.updateAt = LocalDateTime.now();
+    public void setUpdate() {
+        this.updatedAt = LocalDateTime.now();
     }
 }
