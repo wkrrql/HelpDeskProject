@@ -1,11 +1,14 @@
 package com.app.helpdesk.dto;
 
-import com.app.helpdesk.domain.Agent;
+import lombok.Builder;
 
 import java.util.List;
 
+@Builder
 public record GroupDto(
+        Long id,
         String name,
         String description,
-        List<Agent> agents
-) {}
+        List<AgentDto> agents
+) {
+}

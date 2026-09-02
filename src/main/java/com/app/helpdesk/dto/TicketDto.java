@@ -1,10 +1,10 @@
 package com.app.helpdesk.dto;
 
 
-import com.app.helpdesk.domain.Agent;
-import com.app.helpdesk.domain.Organization;
-import com.app.helpdesk.domain.Requester;
-import com.app.helpdesk.domain.ticketsEnums.*;
+import com.app.helpdesk.domain.ticketsEnums.Channel;
+import com.app.helpdesk.domain.ticketsEnums.Priority;
+import com.app.helpdesk.domain.ticketsEnums.Status;
+import com.app.helpdesk.domain.ticketsEnums.Type;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -18,9 +18,10 @@ public record TicketDto(
         Priority priority,
         Type type,
         Channel channel,
-        List<Requester> requester,
-        List<Agent> agent,
-        List<Organization> organization,
+        RequesterDto requester,
+        AgentDto agent,
+        OrganizationDto organization,
+        List<MessageDto> messages,
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
         LocalDateTime firstResponseAt,

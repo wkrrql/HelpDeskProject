@@ -1,17 +1,19 @@
 package com.app.helpdesk.dto;
 
-import com.app.helpdesk.domain.Organization;
 import com.app.helpdesk.domain.agentsEnums.Lang;
+import lombok.Builder;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
+@Builder
 public record RequesterDto(
         Long id,
         String email,
         String name,
         String phone,
         Lang language,
-        List<Organization> organization
-
+        OrganizationDto organization,
+        LocalDateTime createdAt,
+        LocalDateTime updatedAt
 ) {
 }

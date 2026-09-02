@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Entity
@@ -56,6 +58,9 @@ public class Ticket {
     @JoinColumn(name = "organization_id")
     private Organization organization;
 
+    @OneToMany(mappedBy = "ticket", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Message> messages = new ArrayList<>();
+
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
@@ -81,4 +86,5 @@ public class Ticket {
     public void setUpdate() {
         this.updatedAt = LocalDateTime.now();
     }
+
 }

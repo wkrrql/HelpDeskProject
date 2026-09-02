@@ -35,6 +35,9 @@ public class Message {
     @Column(name = "author_id", nullable = false)
     private Long authorId;
 
+    @Column(name = "author_name", nullable = false)
+    private Long authorName;
+
     @Column(name = "author_type", nullable = false)
     private String authorType;  //requester, agent, system
 
