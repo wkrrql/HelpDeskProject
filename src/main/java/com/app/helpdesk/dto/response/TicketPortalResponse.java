@@ -1,11 +1,11 @@
-package com.app.helpdesk.dto;
+package com.app.helpdesk.dto.response;
 
 import java.time.LocalDateTime;
 
 public record TicketPortalResponse(
         String publicNumber,
         String subject,
-        String s,
-        String s1,
+        String status,
+        String requesterName,
         LocalDateTime createdAt) {
 }

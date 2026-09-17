@@ -1,7 +1,7 @@
 package com.app.helpdesk.mapper;
 
 import com.app.helpdesk.domain.Organization;
-import com.app.helpdesk.dto.OrganizationDto;
+import com.app.helpdesk.dto.response.OrganizationResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -10,10 +10,10 @@ import org.springframework.stereotype.Component;
 public class OrganizationMapper {
 
 
-    public OrganizationDto toOrganizationDto(Organization organization) {
+    public OrganizationResponse toResponse(Organization organization) {
         if (organization == null) return null;
 
-        return OrganizationDto.builder()
+        return OrganizationResponse.builder()
                 .id(organization.getId())
                 .domain(organization.getDomain())
                 .notes(organization.getNotes())

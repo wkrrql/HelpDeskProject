@@ -1,7 +1,7 @@
 package com.app.helpdesk.mapper;
 
 import com.app.helpdesk.domain.Requester;
-import com.app.helpdesk.dto.RequesterDto;
+import com.app.helpdesk.dto.response.RequesterResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,16 +11,16 @@ public class RequesterMapper {
 
     private final OrganizationMapper organizationMapper;
 
-    public RequesterDto toRequesterDto(Requester requester) {
+    public RequesterResponse toResponse(Requester requester) {
         if (requester == null) return null;
 
-        return RequesterDto.builder()
+        return RequesterResponse.builder()
                 .id(requester.getId())
                 .email(requester.getEmail())
                 .name(requester.getName())
                 .phone(requester.getPhone())
                 .language(requester.getLanguage())
-                .organization(organizationMapper.toOrganizationDto(requester.getOrganization()))
+                .organization(organizationMapper.toResponse(requester.getOrganization()))
                 .createdAt(requester.getCreatedAt())
                 .updatedAt(requester.getUpdatedAt())
                 .build();

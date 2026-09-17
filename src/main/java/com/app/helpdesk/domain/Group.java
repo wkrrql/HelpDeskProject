@@ -29,7 +29,7 @@ public class Group {
     private String description;
 
     @ManyToMany(mappedBy = "groups")
-    private List<Agent> agents = new ArrayList<>();
+    private List<Agent> agentArrayList = new ArrayList<>();
 
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;

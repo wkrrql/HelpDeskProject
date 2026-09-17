@@ -1,8 +1,7 @@
 package com.app.helpdesk.mapper;
 
 import com.app.helpdesk.domain.Group;
-import com.app.helpdesk.dto.AgentDto;
-import com.app.helpdesk.dto.GroupDto;
+import com.app.helpdesk.dto.response.GroupResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -14,18 +13,18 @@ public class GroupMapper {
 
     private final AgentMapper agentMapper;
 
-    public GroupDto toGroupDto(Group group) {
+    public GroupResponse toResponse(Group group) {
         if (group == null) return null;
 
-        return GroupDto.builder()
+        return GroupResponse.builder()
                 .id(group.getId())
                 .name(group.getName())
                 .description(group.getDescription())
-                .agents(group.getAgents() != null
-                        ? group.getAgents().stream()
-                          .map(agentMapper::toAgentDto)
-                          .collect(Collectors.toList())
-                        : null)
+                .agents(group.getAgentArrayList() != null
+                ? group.getAgentArrayList().stream()
+                  .map(agentMapper::toView)
+                  .collect(Collectors.toList())
+                  :null)
                 .build();
     }
 }

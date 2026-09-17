@@ -1,7 +1,7 @@
 package com.app.helpdesk.mapper;
 
 import com.app.helpdesk.domain.Message;
-import com.app.helpdesk.dto.MessageDto;
+import com.app.helpdesk.dto.response.MessageResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,10 +12,10 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class MessageMapper {
 
-    public MessageDto toMessageDto(Message message) {
+    public MessageResponse toResponse(Message message) {
         if (message == null) return null;
 
-        return new MessageDto(
+        return new MessageResponse(
                 message.getId(),
                 message.getContent(),
                 message.getAuthorType(),
@@ -24,11 +24,11 @@ public class MessageMapper {
         );
     }
 
-    public List<MessageDto> toMessageDtoList(List<Message> messages){
+    public List<MessageResponse> toResponseList(List<Message> messages){
         if (messages == null) return null;
 
         return messages.stream()
-                .map(this::toMessageDto)
+                .map(this::toResponse)
                 .collect(Collectors.toList());
     }
 }

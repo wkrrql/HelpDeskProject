@@ -1,4 +1,4 @@
-package com.app.helpdesk.dto;
+package com.app.helpdesk.dto.response;
 
 
 import com.app.helpdesk.domain.ticketsEnums.Channel;
@@ -9,7 +9,7 @@ import com.app.helpdesk.domain.ticketsEnums.Type;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public record TicketDto(
+public record TicketResponse(
         Long id,
         String publicNumber,
         String subject,
@@ -18,10 +18,10 @@ public record TicketDto(
         Priority priority,
         Type type,
         Channel channel,
-        RequesterDto requester,
-        AgentDto agent,
-        OrganizationDto organization,
-        List<MessageDto> messages,
+        RequesterResponse requester,
+        AgentResponse agent,
+        OrganizationResponse organization,
+        List<MessageResponse> messages,
         LocalDateTime createdAt,
         LocalDateTime updatedAt,
         LocalDateTime firstResponseAt,

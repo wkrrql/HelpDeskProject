@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @RequiredArgsConstructor
-public class CommonMapper {
+public class StatusMapper {
 
     public String mapStatusForClient(Status status) {
         if (status == null) return null;

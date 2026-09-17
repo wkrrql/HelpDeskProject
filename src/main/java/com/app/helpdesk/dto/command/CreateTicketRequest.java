@@ -1,4 +1,4 @@
-package com.app.helpdesk.dto;
+package com.app.helpdesk.dto.command;
 
 import com.app.helpdesk.domain.ticketsEnums.Channel;
 import com.app.helpdesk.domain.ticketsEnums.Priority;

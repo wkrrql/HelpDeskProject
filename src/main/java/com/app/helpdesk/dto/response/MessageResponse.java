@@ -1,6 +1,6 @@
-package com.app.helpdesk.dto;
+package com.app.helpdesk.dto.response;
 
-public record MessageDto(
+public record MessageResponse(
         Long id,
         String content,
         String authorType,

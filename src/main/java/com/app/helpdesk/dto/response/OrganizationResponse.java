@@ -1,11 +1,11 @@
-package com.app.helpdesk.dto;
+package com.app.helpdesk.dto.response;
 
 import lombok.Builder;
 
 import java.time.LocalDateTime;
 
 @Builder
-public record OrganizationDto(
+public record OrganizationResponse(
         Long id,
         String domain,
         String notes,

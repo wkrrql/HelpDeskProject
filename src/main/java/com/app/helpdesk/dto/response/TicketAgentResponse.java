@@ -1,4 +1,4 @@
-package com.app.helpdesk.dto;
+package com.app.helpdesk.dto.response;
 
 import com.app.helpdesk.domain.ticketsEnums.Priority;
 import com.app.helpdesk.domain.ticketsEnums.Status;

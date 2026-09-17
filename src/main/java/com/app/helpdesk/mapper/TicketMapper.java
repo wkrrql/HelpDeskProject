@@ -4,10 +4,10 @@ import com.app.helpdesk.domain.Ticket;
 import com.app.helpdesk.domain.ticketsEnums.Channel;
 import com.app.helpdesk.domain.ticketsEnums.Priority;
 import com.app.helpdesk.domain.ticketsEnums.Type;
-import com.app.helpdesk.dto.CreateTicketRequest;
-import com.app.helpdesk.dto.TicketAgentResponse;
-import com.app.helpdesk.dto.TicketDto;
-import com.app.helpdesk.dto.TicketPortalResponse;
+import com.app.helpdesk.dto.command.CreateTicketRequest;
+import com.app.helpdesk.dto.response.TicketAgentResponse;
+import com.app.helpdesk.dto.response.TicketResponse;
+import com.app.helpdesk.dto.response.TicketPortalResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -23,12 +23,12 @@ public class TicketMapper {
     private final AgentMapper agentMapper;
     private final OrganizationMapper organizationMapper;
     private final MessageMapper messageMapper;
-    private final CommonMapper commonMapper;
+    private final StatusMapper statusMapper;
 
-    public TicketDto toDto(Ticket ticket) {
+    public TicketResponse toDto(Ticket ticket) {
         if (ticket == null) return null;
 
-        return new TicketDto(
+        return new TicketResponse(
                 ticket.getId(),
                 ticket.getPublicNumber(),
                 ticket.getSubject(),
@@ -37,10 +37,10 @@ public class TicketMapper {
                 ticket.getPriority(),
                 ticket.getType(),
                 ticket.getChannel(),
-                requesterMapper.toRequesterDto(ticket.getRequester()),
-                agentMapper.toAgentDto(ticket.getAgent()),
-                organizationMapper.toOrganizationDto(ticket.getOrganization()),
-                messageMapper.toMessageDtoList(ticket.getMessages()),
+                requesterMapper.toResponse(ticket.getRequester()),
+                agentMapper.toResponse(ticket.getAgent()),
+                organizationMapper.toResponse(ticket.getOrganization()),
+                messageMapper.toResponseList(ticket.getMessageArrayList()),
                 ticket.getCreatedAt(),
                 ticket.getUpdatedAt(),
                 ticket.getFirstResponseAt(),
@@ -54,7 +54,7 @@ public class TicketMapper {
         return new TicketPortalResponse(
                 ticket.getPublicNumber(),
                 ticket.getSubject(),
-                commonMapper.mapStatusForClient(ticket.getStatus()),
+                statusMapper.mapStatusForClient(ticket.getStatus()),
                 ticket.getRequester() != null ? ticket.getRequester().getName() : null,
                 ticket.getCreatedAt()
         );
@@ -84,7 +84,7 @@ public class TicketMapper {
                 .collect(Collectors.toList());
     }
 
-    public List<TicketDto> toDtoList(List<Ticket> tickets) {
+    public List<TicketResponse> toDtoList(List<Ticket> tickets) {
         if (tickets == null) return null;
         return tickets.stream()
                 .map(this::toDto)
